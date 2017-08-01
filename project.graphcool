@@ -1,0 +1,61 @@
+# project: cj5mj276n7tyj01224emckwt9
+# version: 12
+
+type File implements Node {
+  contentType: String!
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  updatedAt: DateTime!
+  url: String! @isUnique
+}
+
+type User implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  orders: [Order!]! @relation(name: "UserOnOrder")
+}
+
+type ProductKind implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  name: String!
+  description: String
+  colors: [String!]
+  tags: [String!]
+  sku: String
+  isActive: Boolean! @defaultValue(value: true)
+  products: [Product!]! @relation(name: "ProductKindOnProduct")
+  type: [ProductType!]!
+}
+
+type Product implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  sku: String!
+  productKind: ProductKind! @relation(name: "ProductKindOnProduct")
+}
+
+type Order implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  items: [Json!]
+  subtotal: Float! @defaultValue(value: 0.0)
+  tax: Float! @defaultValue(value: 0.0)
+  total: Float! @defaultValue(value: 0.0)
+  user: User! @relation(name: "UserOnOrder")
+}
+
+enum ProductType {
+  Necklace
+  Ring
+  Earrings
+  Bracelet
+  HairAccessory
+}
