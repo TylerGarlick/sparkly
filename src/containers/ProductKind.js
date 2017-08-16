@@ -9,18 +9,15 @@ import {
 
 import UpdateProductKind from '../components/UpdateProductKind'
 
-import AddProductKindMutation from '../mutations'
 
 class ProductKind extends Component {
 
   handleFormSubmit = async (e, productKind) => {
     e.preventDefault()
 
-    const result = await AddProductKindMutation(productKind.name, productKind.description)
-
-    // const result = this.props.addProductKind({
-    //   variables: productKind,
-    // })
+    const result = this.props.addProductKind({
+      variables: productKind,
+    })
 
     console.log(result)
   }
