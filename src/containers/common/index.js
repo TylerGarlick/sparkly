@@ -9,7 +9,7 @@ export const NotFound = () => (
 )
 
 
-export const Home = () => (
+export const Home = () => ( 
   <article>
     <h1>Home</h1>
 

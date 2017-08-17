@@ -8,14 +8,15 @@ export default () => (
   <Router>
     <Switch>
       <Route exact path="/" component={Home} />
+
       <Route exact path="/logout" component={() => {
         logout()
         window.location = '/'
         return null
       }} />
 
-      <Route exact path="/callback" component={() => {
-        handleAuthentication()
+      <Route exact path="/callback" component={(props) => {
+        handleAuthentication(props)
         window.location = '/'
         return null
       }} />

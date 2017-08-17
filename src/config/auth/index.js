@@ -3,6 +3,25 @@ import AuthLock from 'auth0-lock'
 
 import * as Configuration from './settings'
 import * as Storage from './storage'
+import Client from '../graphql'
+
+
+import { gql } from 'react-apollo'
+
+// const EXISTS_QUERY = gql`
+//   query($id: ID!) {
+//     User()
+//   }
+// `
+
+const MUTATION = gql`
+  mutation($idToken: String!) {
+    createUser(authProvider: { auth0: { idToken: $idToken } }) {
+      id
+    }
+  }
+
+`
 
 const KEYS = {
   accessToken: 'access_token',
@@ -44,10 +63,19 @@ const parse = async () => new Promise((resolve, reject) => {
 const configure = async ({ expiresIn, accessToken, idToken }) => {
   const expiresAt = JSON.stringify((expiresIn * 1000) + new Date().getTime())
 
+  console.log(accessToken)
+  console.log(idToken)
+
   return await Promise.all([
     Storage.save(KEYS.accessToken, accessToken),
     Storage.save(KEYS.idToken, idToken),
     Storage.save(KEYS.expiresAt, expiresAt),
+    Promise.resolve(Client.mutate({
+      mutation: MUTATION,
+      variables: {
+        idToken,
+      },
+    }))
   ])
 }
 
@@ -67,7 +95,7 @@ export const isAuthenticated = () => {
     const raw = Storage.itemByKey(KEYS.expiresAt)
     if (!raw) return false
     return (new Date().getTime() < JSON.parse(raw))
-  } catch(err) {
+  } catch (err) {
     console.error(err)
     return false
   }
