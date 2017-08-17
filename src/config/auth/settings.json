@@ -1,0 +1,8 @@
+{
+  "domain": "sparkly.auth0.com",
+  "clientID": "plv8tNPD4S3zyQ1bdj4Ljt9A12atLbHX",
+  "redirectUri": "http://localhost:3000/callback",
+  "audience": "https://sparkly.auth0.com/userinfo",
+  "responseType": "token id_token",
+  "scope": "openid"
+}

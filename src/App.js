@@ -1,14 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './App.css'
+import Routes from './Routes'
 
-import ProductKinds from './containers/ProductKind'
 
-class App extends Component {
-  render() {
-    return (
-      <ProductKinds />
-    )
-  }
-}
 
-export default App
+export default () => (
+  <Routes />
+)
