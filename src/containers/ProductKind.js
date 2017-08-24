@@ -35,7 +35,7 @@ class ProductKind extends Component {
           </div>
         ))}
 
-        <UpdateProductKind formSubmitted={this.handleFormSubmit} />
+        {/*<UpdateProductKind formSubmitted={this.handleFormSubmit} />*/}
       </div>
     )
   }
